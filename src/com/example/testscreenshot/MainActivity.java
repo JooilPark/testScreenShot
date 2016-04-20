@@ -66,15 +66,23 @@ public class MainActivity extends Activity {
 				mWebView.draw(canvas);
 				mImageView.setImageBitmap(bm);*/
 				
-				mWebView.buildDrawingCache();
+				/*mWebView.buildDrawingCache();
 				Bitmap bp = mWebView.getDrawingCache();
 				Bitmap bm = Bitmap.createBitmap(mWebView.getMeasuredWidth(),
 						 mWebView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
 				Canvas canvas = new Canvas(bm);
 				canvas.drawBitmap(bp, 0, 0, null);
 				mImageView.setImageBitmap(bm);
-				mWebView.destroyDrawingCache();
+				mWebView.destroyDrawingCache();*/
 				
+				mWebView.getRootView().buildDrawingCache();
+				Bitmap bp = mWebView.getRootView().getDrawingCache();
+				Bitmap bm = Bitmap.createBitmap(mWebView.getMeasuredWidth(),
+						 mWebView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+				Canvas canvas = new Canvas(bm);
+				canvas.drawBitmap(bp, 0, 0, null);
+				mImageView.setImageBitmap(bm);
+				mWebView.destroyDrawingCache();
 				
 				
 				/*String File = Environment.getExternalStorageDirectory().toString()+"/screen" + System.currentTimeMillis() + ".png";
@@ -104,6 +112,9 @@ public class MainActivity extends Activity {
 				
 			}
 		});
+		
+		
+		
 	}
 	class sampleWEbClient extends WebViewClient{
 		@Override
