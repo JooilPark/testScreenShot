@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
 		        return false;
 		    }
 		});
-		mWebView.loadUrl("file:///android_asset/drawapp/html5-canvas-drawing-app.html");
+		mWebView.loadUrl("file:///android_asset/drawapp/html5_canvas_painting.html");
 		
 		findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
 			
