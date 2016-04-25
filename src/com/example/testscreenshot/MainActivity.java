@@ -5,12 +5,13 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -18,7 +19,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 public class MainActivity extends Activity {
-	private WebView mWebView;
+	private CustomWebView mWebView;
 	private ImageView mImageView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +28,11 @@ public class MainActivity extends Activity {
 		//finish();
 		setContentView(R.layout.activity_main);
 		mImageView = (ImageView)findViewById(R.id.imageView1);
-		mWebView = (WebView)findViewById(R.id.webView1);
-		//mWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+		mWebView = (CustomWebView)findViewById(R.id.webView1);
+		mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 		mWebView.setFocusable(true);
 		mWebView.setFocusableInTouchMode(true);
-		
+		Log.d("park", "Build.VERSION.SDK_INT = " + Build.VERSION.SDK_INT);
 		
 		mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ONLY);
 		mWebView.requestFocus(View.FOCUS_DOWN);
@@ -75,6 +76,8 @@ public class MainActivity extends Activity {
 				mImageView.setImageBitmap(bm);
 				mWebView.destroyDrawingCache();*/
 				
+				/*
+				// 갤럭시 4는 됨 ?
 				mWebView.getRootView().buildDrawingCache();
 				Bitmap bp = mWebView.getRootView().getDrawingCache();
 				Bitmap bm = Bitmap.createBitmap(mWebView.getMeasuredWidth(),
@@ -83,6 +86,7 @@ public class MainActivity extends Activity {
 				canvas.drawBitmap(bp, 0, 0, null);
 				mImageView.setImageBitmap(bm);
 				mWebView.destroyDrawingCache();
+				*/
 				
 				
 				/*String File = Environment.getExternalStorageDirectory().toString()+"/screen" + System.currentTimeMillis() + ".png";
@@ -96,10 +100,23 @@ public class MainActivity extends Activity {
 				mImageView.setImageBitmap(bm);
 				mImageView.setVisibility(View.VISIBLE);*/
 				
+				/*mWebView.getRootView().setDrawingCacheEnabled(true);
+				mWebView.getRootView().measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), 
+                         MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+				mWebView.getRootView().layout(0, 0, mWebView.getMeasuredWidth(), mWebView.getMeasuredHeight()); 
+
+				mWebView.getRootView().buildDrawingCache(true);
+				Bitmap b = Bitmap.createBitmap(mWebView.getRootView().getDrawingCache());
+				mWebView.getRootView().setDrawingCacheEnabled(false);
+				mWebView.getRootView().destroyDrawingCache();
+				mImageView.setImageBitmap(b);*/
+
 				
 				
 				
 				
+				
+				mImageView.setImageBitmap(mWebView.screenshot(mWebView, 0.0f));
 				
 				mImageView.setVisibility(View.VISIBLE);
 			}

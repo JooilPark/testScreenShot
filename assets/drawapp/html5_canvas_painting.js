@@ -50,8 +50,17 @@ var colorPurple = [
 $(document).ready(function(){
 	canvasInit();
 })
-
-
+/**
+ * Image to File
+ * @param canvas
+ */
+function convertCanvasToImage(canvas) {
+	var image = new Image();
+	image.src = canvas.toDataURL("image/png");
+	var data = atob( dataURL.substring( "data:image/png;base64,".length ) ),
+    asArray = new Uint8Array(data.length);
+	return image;
+}
 /**
  * 캔버스 최초 초기화
  */
@@ -168,7 +177,9 @@ function toolInit(){
 	$('#line_blue').click(function(){
 		toolStrokeStyle("#0000ff", 10);
 	});
-	
+	$('#save').click(function(){
+		saveCanvasToFile();
+	});
 }
 /**
  * 그림정보 저장
